@@ -38,5 +38,20 @@ Bola.prototype = {
 
       // Voltar às configurações anteriores
       ctx.restore();      
+   },
+   atirar: function(){
+       var tiro = new Bola(this.context);
+       tiro.x = this.x + 10;
+       tiro.y = this.y + 10;
+       tiro.raio = 2;
+       tiro.cor = 'red';
+
+       if(this.teclado.pressionada[SETA_ESQUERDA])
+            tiro.velocidadeX = -20;
+       else
+            tiro.velocidadeY = 20;
+
+       //Nao tenho como concluir nada na animacao
+       this.animacao.novoSprite(tiro);
    }
 }
