@@ -12,13 +12,6 @@ function Bola(context) {
 Bola.prototype = {
    atualizar: function() {
       var ctx = this.context;
-
-      if (this.x < this.raio || this.x > ctx.canvas.width - this.raio)
-         this.velocidadeX *= -1;
-
-      if (this.y < this.raio || this.y > ctx.canvas.height - this.raio)
-         this.velocidadeY *= -1;
-
       this.x += this.velocidadeX;
       this.y += this.velocidadeY;
    },
@@ -38,20 +31,5 @@ Bola.prototype = {
 
       // Voltar às configurações anteriores
       ctx.restore();      
-   },
-   atirar: function(){
-       var tiro = new Bola(this.context);
-       tiro.x = this.x + 10;
-       tiro.y = this.y + 10;
-       tiro.raio = 2;
-       tiro.cor = 'red';
-
-       if(this.teclado.pressionada[SETA_ESQUERDA])
-            tiro.velocidadeX = -20;
-       else
-            tiro.velocidadeY = 20;
-
-       //Nao tenho como concluir nada na animacao
-       this.animacao.novoSprite(tiro);
    }
 }
