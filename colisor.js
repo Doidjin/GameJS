@@ -1,10 +1,12 @@
 function Colisor() {
    this.sprites = [];
    this.aoColidir = null;
+   this.spritesExcluir = [];
 }
 Colisor.prototype = {
    novoSprite: function(sprite) {
       this.sprites.push(sprite);
+      sprite.colisor = this;
    },
    processar: function() {
       // Inicio com um objeto vazio
@@ -36,6 +38,8 @@ Colisor.prototype = {
             }
          }
       }
+      
+      this.processarExclusoes();
    },
    testarColisao: function(sprite1, sprite2) {
       // Obter os retângulos de colisão de cada sprite
@@ -80,5 +84,24 @@ Colisor.prototype = {
       }
 
       return str;
+   },
+   excluirSprite: function(sprite) {
+      this.spritesExcluir.push(sprite);
+   },
+   processarExclusoes: function() {
+      // Criar um novo array
+      var novoArray = [];
+      
+      // Adicionar somente os elementos não excluídos
+      for (var i in this.sprites) {
+         if (this.spritesExcluir.indexOf(this.sprites[i]) == -1)
+            novoArray.push(this.sprites[i]);
+      }
+      
+      // Limpar o array de exclusões
+      this.spritesExcluir = [];
+      
+      // Substituir o array velho pelo novo
+      this.sprites = novoArray;
    }
 }
